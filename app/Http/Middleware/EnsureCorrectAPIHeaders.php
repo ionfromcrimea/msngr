@@ -17,6 +17,16 @@ class EnsureCorrectAPIHeaders
      */
     public function handle($request, Closure $next)
     {
+
+// обходим требование джейсона в запросе для возможности запостить файл
+//        return $next($request);
+//        return new Response(substr($_SERVER['REQUEST_URI'],0,16), 406);
+//        substr ( string $string , int $start [, int $length ] ) /api/v1/sendfile
+        if(substr($_SERVER['REQUEST_URI'],0,16) == '/api/v1/sendfile')
+        {
+            return $next($request);
+        }
+
         if($request->headers->get('accept') !== 'application/vnd.api+json')
         {
             return new Response('', 406);

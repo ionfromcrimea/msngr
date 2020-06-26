@@ -23,6 +23,8 @@ Route::middleware('auth:api')->prefix('v1')->group(function () {
 //        return $request->user();
     });
 
+    Route::post('/sendfile', 'FilesController@store');
+
 // Users
     Route::get('/users/current', 'CurrentAuthenticatedUserController@show');
     Route::apiResource('users', 'UsersController');
